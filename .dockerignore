@@ -1,0 +1,48 @@
+# Node.js dependencies
+node_modules
+npm-debug.log
+yarn-error.log
+
+# Logs
+logs
+*.log
+*.log.*
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Docker files
+Dockerfile
+docker-compose.yml
+
+# IDE and editor specific files
+.vscode/
+.idea/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# TypeScript build artifacts
+dist/
+build/
+
+# Test and coverage directories
+coverage/
+jest/
+*.test.ts
+*.spec.ts
+
+# Other local configuration files
+*.tgz
+*.gz
+*.zip
+*.tar
+*.rar
+
+# Temporary or backup files
+*.bak
+*.swp
+*~

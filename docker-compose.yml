@@ -1,0 +1,49 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: foodapp-api
+    ports:
+      - "${PORT}:${PORT}"
+    # env_file:
+    #   - .env.local  # Cambia esto según el entorno (local, dev, prod)
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
+      PORT: ${PORT}
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_DATABASE: ${DB_DATABASE}
+      JWT_SECRET: ${JWT_SECRET}
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    command: >
+      sh -c "if [ ${NODE_ENV} = 'production' ]; then npm run start:prod; else npm run start:dev; fi"
+    depends_on:
+      - postgres
+    networks:
+      - foodapp-network
+
+  postgres:
+    image: postgres:15
+    container_name: foodapp-db-local
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_DATABASE}
+    ports:
+      - "5000:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - foodapp-network
+  
+networks:
+  foodapp-network:
+    driver: bridge
+volumes:
+  postgres_data:

@@ -1,0 +1,12 @@
+export { DiningRoom } from './diningRoom.entity';
+export { Invoice } from './invoice.entity';
+export { PaymentReceipt } from './paymentReceipt.entity';
+export { InvoiceData } from './invoiceData.entity';
+export { CompanyRepresentative } from './companyRepresentative.entity';
+export { Company } from './company.entity';
+export { Employee } from './employee.entity';
+export { Pedido } from './pedido.entity';
+export { Food } from './food.entity';
+export { Auth } from './auth.entity';
+export { User } from './user.entity';
+export { ClientApp } from './clientApp.entity';
