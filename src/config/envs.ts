@@ -6,6 +6,7 @@ const envFile = `.env.${process.env.NODE_ENV || 'local'}`;
 config({ path: resolve(__dirname, '..', envFile) });
 
 interface envsI {
+  node_env: string;
   port: number;
   jwt_secret: string;
   db: {
@@ -19,6 +20,7 @@ interface envsI {
 
 const envsSchema = joi
   .object({
+    NODE_ENV: joi.string().optional().default('local'),
     PORT: joi.number().required(),
     JWT_SECRET: joi.string().required(),
     DB_PORT: joi.number().required(),
@@ -34,9 +36,9 @@ const { error, value: envsVarsValue } = envsSchema.validate(process.env);
 if (error) {
   throw new Error(`Config validation error: ${error.message}`);
 }
-console.log('🚀 ~ envsVarsValue:', envsVarsValue);
 
 export const envs: envsI = {
+  node_env: envsVarsValue.NODE_ENV,
   port: envsVarsValue.PORT,
   jwt_secret: envsVarsValue.JWT_SECRET,
   db: {

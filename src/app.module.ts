@@ -6,22 +6,12 @@ import { AuthModule } from './modules/auth/auth.module';
 import { CompanyModule } from './modules/company/company.module';
 import { InvoiceModule } from './modules/invoice/invoice.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-// import {  } from './entities/user.entity';
-import {
-  Auth,
-  User,
-  ClientApp,
-  Company,
-  CompanyRepresentative,
-  DiningRoom,
-  Employee,
-  Food,
-  Invoice,
-  InvoiceData,
-  PaymentReceipt,
-  Pedido,
-} from './entities';
-import { envs } from './config/envs';
+import { typeOrmConfig } from './config/typeorm.config';
+import { DatabaseModule } from './database/database.module';
+// import { ThrottlerModule } from '@nestjs/throttler';
+// import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
+// import { ThrottlerExceptionInterceptor } from './common/interceptors/throttler-exception.interceptor';
+// import { ThrottlerRolesGuard } from './auth/guards/throttler-roles.guard';
 
 @Module({
   imports: [
@@ -30,32 +20,26 @@ import { envs } from './config/envs';
     AuthModule,
     CompanyModule,
     InvoiceModule,
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'postgres',
-      port: envs.db.port,
-      password: envs.db.password,
-      username: envs.db.username,
-      database: envs.db.database,
-      entities: [
-        User,
-        Auth,
-        ClientApp,
-        Company,
-        CompanyRepresentative,
-        DiningRoom,
-        Employee,
-        Food,
-        Invoice,
-        InvoiceData,
-        PaymentReceipt,
-        Pedido,
-      ],
-      synchronize: true,
-      logging: true,
-    }),
+    TypeOrmModule.forRoot(typeOrmConfig),
+    // ThrottlerModule.forRoot([
+    //   {
+    //     ttl: 60000,
+    //     limit: 10,
+    //   },
+    // ]),
+    DatabaseModule,
   ],
   controllers: [AppController],
+  // providers: [
+  //   {
+  //     provide: APP_GUARD,
+  //     useClass: ThrottlerRolesGuard,
+  //   },
+  //   {
+  //     provide: APP_INTERCEPTOR,
+  //     useClass: ThrottlerExceptionInterceptor,
+  //   },
+  // ],
 })
 export class AppModule {}
 // TODO

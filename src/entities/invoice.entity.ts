@@ -9,6 +9,7 @@ import {
 import { PaymentReceipt } from './paymentReceipt.entity';
 import { Company } from './company.entity';
 import { ClientApp } from './clientApp.entity';
+import { ClientCustomer } from './clientCustomer.entity';
 
 @Entity()
 export class Invoice {
@@ -32,6 +33,9 @@ export class Invoice {
 
   @ManyToOne(() => ClientApp, (clientApp) => clientApp.invoices)
   clientApp: ClientApp;
+
+  @ManyToOne(() => ClientCustomer, (clientCustomer) => clientCustomer.invoices)
+  clientCustomer: ClientCustomer;
 
   @OneToOne(() => PaymentReceipt)
   @JoinColumn()

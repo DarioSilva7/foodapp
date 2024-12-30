@@ -12,14 +12,17 @@ export class Auth {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ unique: true })
+  @Column({ type: 'text', unique: true })
   email: string;
 
-  @Column({ unique: true })
+  @Column({ type: 'text', unique: true })
   password: string;
 
-  @Column({ nullable: true })
+  @Column({ type: 'text', nullable: true })
   refreshToken: string;
+
+  @Column({ type: 'text', nullable: true })
+  OTP: string;
 
   @OneToOne(() => User, (user) => user.auth)
   @JoinColumn()

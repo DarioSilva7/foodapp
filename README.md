@@ -81,3 +81,43 @@ Usar migraciones con TypeORM
    Revisa los cambios en la base de datos con el siguiente comando:
 
    `npm run typeorm schema:log`
+
+<br>
+<br>
+<hr>
+<br>
+<br>
+
+```bash
+te recomiendo aplicar rate limit en los siguientes endpoints:
+
+a) Autenticación:
+
+- Login: 5 intentos por minuto
+- Registro: 3 intentos por minuto
+- Recuperación de contraseña: 3 intentos por 5 minutos
+
+
+b) Pedidos:
+
+- Creación de pedidos: 10 por minuto
+- Modificación de pedidos: 5 por minuto
+- Cancelación de pedidos: 3 por minuto
+
+
+c) Búsqueda y listados:
+
+- Búsqueda de productos: 20 por minuto
+- Listado de pedidos: 15 por minuto
+
+
+d) Operaciones sensibles:
+
+- Cambio de información de perfil: 5 por 10 minutos
+- Cambio de contraseña: 3 por 10 minutos
+
+
+e) API de administración (incluyendo los endpoints de base de datos):
+
+- Todas las operaciones: 10 por minuto
+```
