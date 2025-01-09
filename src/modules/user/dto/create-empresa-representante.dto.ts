@@ -1,7 +1,7 @@
 import { IsString } from 'class-validator';
-import { CreateUserDto } from './create-user.dto';
+import { CreateBaseUserDto } from './create-base-user.dto';
 
-export class CreateEmpresaRepresentanteDto extends CreateUserDto {
+export class CreateEmpresaRepresentanteDto extends CreateBaseUserDto {
   @IsString()
   empresaId: string;
 }

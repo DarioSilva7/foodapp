@@ -2,7 +2,7 @@ import { ConflictException, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { CreateUserDto } from './dto/create-user.dto';
+import { CreateBaseUserDto } from './dto/create-base-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import {
   ClientApp,
@@ -23,7 +23,7 @@ export class UserService {
     private readonly employeeRepository: Repository<Employee>,
   ) {}
 
-  async create(createUserDto: CreateUserDto): Promise<User> {
+  async create(createUserDto: CreateBaseUserDto): Promise<User> {
     console.log('🚀 ~ UserService ~ create ~ createUserDto:', createUserDto);
 
     const existingUser = await this.findByEmail(createUserDto.email);
@@ -33,19 +33,19 @@ export class UserService {
 
     let user: User;
 
-    switch (createUserDto.role) {
-      case 'client_app':
-        user = this.clientAppRepository.create(createUserDto);
-        break;
-      case 'company_representative':
-        user = this.companyRepresentativeRepository.create(createUserDto);
-        break;
-      case 'employee':
-        user = this.employeeRepository.create(createUserDto);
-        break;
-      default:
-        user = this.userRepository.create(createUserDto);
-    }
+    // switch (createUserDto.role) {
+    //   case 'client_app':
+    //     user = this.clientAppRepository.create(createUserDto);
+    //     break;
+    //   case 'company_representative':
+    //     user = this.companyRepresentativeRepository.create(createUserDto);
+    //     break;
+    //   case 'employee':
+    //     user = this.employeeRepository.create(createUserDto);
+    //     break;
+    //   default:
+    //     user = this.userRepository.create(createUserDto);
+    // }
 
     return await this.userRepository.save(user);
   }

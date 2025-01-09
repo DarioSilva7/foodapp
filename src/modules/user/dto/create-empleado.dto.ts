@@ -1,7 +1,7 @@
 import { IsString } from 'class-validator';
-import { CreateUserDto } from './create-user.dto';
+import { CreateBaseUserDto } from './create-base-user.dto';
 
-export class CreateEmpleadoDto extends CreateUserDto {
+export class CreateEmpleadoDto extends CreateBaseUserDto {
   @IsString()
   cuil: string;
 

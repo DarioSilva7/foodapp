@@ -33,7 +33,7 @@ export class InvoiceService {
     if (!invoice) {
       throw new NotFoundException('Invoice no encontrada');
     }
-    if (invoice.estado === 'pagada') {
+    if (invoice.status === 'pagada') {
       throw new BadRequestException('Esta factura ya ha sido pagada');
     }
 
@@ -43,13 +43,13 @@ export class InvoiceService {
     await this.PaymentReceiptRepository.save(paymentReceipt);
 
     invoice.paymentReceipt = paymentReceipt;
-    invoice.estado = 'pagada';
+    invoice.status = 'pagada';
     return await this.invoiceRepository.save(invoice);
   }
 
   async obtenerFacturasPendientes(companyId: string): Promise<Invoice[]> {
     return await this.invoiceRepository.find({
-      where: { company: { id: companyId }, estado: 'pendiente' },
+      where: { company: { id: companyId }, status: 'pendiente' },
     });
   }
 

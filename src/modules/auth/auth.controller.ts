@@ -5,7 +5,7 @@ import {
   CreateClientAppDto,
   CreateEmpleadoDto,
   CreateEmpresaRepresentanteDto,
-  CreateUserDto,
+  CreateBaseUserDto,
 } from '../user/dto/index';
 
 @Controller('auth')
@@ -27,7 +27,7 @@ export class AuthController {
   }
 
   @Post('register/client-customer')
-  async registerClienteCustomer(@Body() createClientAppDto: CreateUserDto) {
+  async registerClienteCustomer(@Body() createClientAppDto: CreateBaseUserDto) {
     return this.authService.register({
       ...createClientAppDto,
       role: 'client_customer',

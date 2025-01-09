@@ -1,9 +1,9 @@
 import { IsObject, IsString, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
-import { CreateUserDto } from './create-user.dto';
+import { CreateBaseUserDto } from './create-base-user.dto';
 import { CreateInvoiceDataDto } from '../../company/dto/create-invoice-data.dto';
 
-export class CreateClientAppDto extends CreateUserDto {
+export class CreateClientAppDto extends CreateBaseUserDto {
   @IsString()
   companyName: string;
 

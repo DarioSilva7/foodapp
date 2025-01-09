@@ -22,6 +22,6 @@ export class User {
   @Column({ default: 'user' })
   role: string;
 
-  @OneToOne(() => Auth, (auth) => auth.user)
+  @OneToOne(() => Auth, (auth) => auth.baseUser)
   auth: Auth;
 }

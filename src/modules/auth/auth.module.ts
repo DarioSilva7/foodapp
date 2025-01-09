@@ -7,14 +7,14 @@ import { AuthController } from './auth.controller';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from 'src/entities';
+import { BaseUser } from 'src/entities/baseUser.entity';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 
 @Module({
   imports: [
     UserModule, // para usar UserService y UserRepository
     PassportModule,
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([BaseUser]),
     JwtModule.register({
       secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: '60m' },
