@@ -1,6 +1,8 @@
 import { HttpAdapterHost, NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
 import { Logger, ValidationPipe } from '@nestjs/common';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+
+import { AppModule } from './app.module';
 import { AllExceptionsFilter } from './common/filters/all-exceptions.filter';
 import { LoggingInterceptor } from './common/interceptors/logging.interceptors';
 import { envs } from './config/envs';
@@ -22,6 +24,15 @@ async function bootstrap() {
       forbidNonWhitelisted: true, // Retorna Bad Request si hay propiedades en el objeto que no son requeridas.
     }),
   );
+
+  const config = new DocumentBuilder()
+    .setTitle('Food-Api')
+    .setDescription('Documentacion para consumir los endpoint de Foodapi')
+    .setVersion(envs.npm_package_version || '1.0')
+    .build();
+
+  const documentFactory = () => SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api-doc', app, documentFactory);
 
   // Asumiendo que estás usando Passport para la autenticación
   // app.use((req, res, next) => {
