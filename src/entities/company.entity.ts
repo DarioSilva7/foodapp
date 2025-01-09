@@ -11,8 +11,8 @@ import {
   Employee,
   DiningRoom,
   CompanyRepresentative,
+  Invoice,
 } from './index';
-import { Invoice } from './invoice.entity';
 
 @Entity()
 export class Company {
@@ -30,17 +30,17 @@ export class Company {
 
   @OneToMany(
     () => CompanyRepresentative,
-    (representante) => representante.company,
+    (representative) => representative.company,
   )
-  representantes: CompanyRepresentative[];
+  representatives: CompanyRepresentative[];
 
   @OneToMany(() => DiningRoom, (diningroom) => diningroom.company)
-  comedores: DiningRoom[];
+  diningRoom: DiningRoom[];
 
   @OneToMany(() => Invoice, (invoice) => invoice.company)
   invoices: Invoice[];
 
-  @OneToOne(() => InvoiceData)
-  @JoinColumn()
+  @OneToOne(() => InvoiceData, { cascade: true, onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'invoice_data_id' })
   invoiceData: InvoiceData;
 }

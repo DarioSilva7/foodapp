@@ -1,30 +1,36 @@
 import {
   Column,
-  Entity,
-  JoinColumn,
-  OneToOne,
+  CreateDateColumn,
   PrimaryGeneratedColumn,
+  Entity,
+  OneToOne,
+  UpdateDateColumn,
 } from 'typeorm';
-import { User } from './user.entity';
+import { BaseUser } from './baseUser.entity';
 
 @Entity()
 export class Auth {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'text', unique: true })
-  email: string;
-
-  @Column({ type: 'text', unique: true })
+  @Column({ unique: true })
   password: string;
 
-  @Column({ type: 'text', nullable: true })
+  @Column({ name: 'refresh_token', nullable: true })
   refreshToken: string;
 
-  @Column({ type: 'text', nullable: true })
+  @Column({ nullable: true })
   OTP: string;
 
-  @OneToOne(() => User, (user) => user.auth)
-  @JoinColumn()
-  user: User;
+  @Column({ name: 'is_active', type: 'boolean', default: true })
+  isActive: boolean;
+
+  @CreateDateColumn({ name: 'created_date' })
+  createdDate: Date;
+
+  @UpdateDateColumn({ name: 'updated_date' })
+  updatedDate: Date;
+
+  @OneToOne(() => BaseUser, (baseUser) => baseUser.auth)
+  baseUser: BaseUser;
 }

@@ -1,6 +1,6 @@
-// src/viandas/entities/food.entity.ts
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Pedido } from './pedido.entity';
+import { PedidoFood } from './pedido.food.entity';
 
 @Entity()
 export class Food {
@@ -19,6 +19,9 @@ export class Food {
   @Column('simple-array')
   dietaryRestrictions: string[];
 
-  @ManyToMany(() => Pedido, (pedido) => pedido.viandas)
-  pedidos: Pedido[];
+  @Column({ default: true })
+  isAvailableThisWeek: boolean; //vianda disponible para la semana actual
+
+  @OneToMany(() => PedidoFood, (pedidoFood) => pedidoFood.food)
+  pedidosFood: Pedido[];
 }

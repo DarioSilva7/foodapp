@@ -1,3 +1,4 @@
+export { PedidoFood } from './pedido.food.entity';
 export { DiningRoom } from './diningRoom.entity';
 export { Invoice } from './invoice.entity';
 export { PaymentReceipt } from './paymentReceipt.entity';
@@ -8,5 +9,8 @@ export { Employee } from './employee.entity';
 export { Pedido } from './pedido.entity';
 export { Food } from './food.entity';
 export { Auth } from './auth.entity';
-export { User } from './user.entity';
+export { BaseUser } from './baseUser.entity';
 export { ClientApp } from './clientApp.entity';
+export { ClientCustomer } from './clientCustomer.entity';
+export { Permission } from './permission.entity';
+export { Role } from './role.entity';

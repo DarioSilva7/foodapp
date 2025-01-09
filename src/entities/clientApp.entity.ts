@@ -1,22 +1,36 @@
-import { Entity, Column, OneToOne, JoinColumn, OneToMany } from 'typeorm';
-import { InvoiceData } from './index';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToOne,
+  JoinColumn,
+  OneToMany,
+} from 'typeorm';
+import { BaseUser } from './baseUser.entity';
+import { InvoiceData } from './invoiceData.entity';
 import { Invoice } from './invoice.entity';
-import { User } from './user.entity';
 
 @Entity()
-export class ClientApp extends User {
-  @Column()
+export class ClientApp {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
+  @Column({ name: 'company_name' })
   companyName: string;
 
-  @OneToOne(() => InvoiceData)
-  @JoinColumn()
+  @OneToOne(() => BaseUser, { cascade: true, onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'id_base_user' })
+  baseUser: BaseUser;
+
+  @OneToOne(() => InvoiceData, (invoiceData) => invoiceData.clientApp, {
+    cascade: true,
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'invoice_data_id' })
   invoiceData: InvoiceData;
 
-  @OneToMany(() => Invoice, (invoice) => invoice.clientApp)
+  @OneToMany(() => Invoice, (invoice) => invoice.clientApp, {
+    onDelete: 'NO ACTION',
+  })
   invoices: Invoice[];
-
-  constructor() {
-    super();
-    this.role = 'client_app';
-  }
 }

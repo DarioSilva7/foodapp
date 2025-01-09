@@ -1,4 +1,3 @@
-// src/facturacion/entities/comprobante-pago.entity.ts
 import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from 'typeorm';
 import { Invoice } from './invoice.entity';
 
@@ -7,16 +6,16 @@ export class PaymentReceipt {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({ name: 'transaction_number' })
   numeroTransaccion: string;
 
-  @Column()
+  @Column({ name: 'payment_date' })
   fechaPago: Date;
 
-  @Column()
+  @Column({ name: 'payment_method' })
   metodoPago: string;
 
-  @Column()
+  @Column({ name: 'url_file' })
   archivoUrl: string;
 
   @OneToOne(() => Invoice, (invoice) => invoice.paymentReceipt)

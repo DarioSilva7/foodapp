@@ -1,14 +1,23 @@
-import { Entity, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Company } from './index';
-import { User } from './user.entity';
-
+import { BaseUser } from './baseUser.entity';
 @Entity()
-export class CompanyRepresentative extends User {
-  @ManyToOne(() => Company, (company) => company.representantes)
+export class CompanyRepresentative {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
+  @ManyToOne(() => Company, (company) => company.representatives, {
+    onDelete: 'CASCADE',
+  })
   company: Company;
 
-  constructor() {
-    super();
-    this.role = 'company_representative';
-  }
+  @OneToOne(() => BaseUser, { cascade: true, onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'id_base_user' })
+  baseUser: BaseUser;
 }

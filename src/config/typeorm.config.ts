@@ -2,8 +2,11 @@ import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import * as path from 'path';
 import {
   Auth,
-  User,
+  BaseUser,
   ClientApp,
+  ClientCustomer,
+  Permission,
+  Role,
   Company,
   CompanyRepresentative,
   DiningRoom,
@@ -13,22 +16,23 @@ import {
   InvoiceData,
   PaymentReceipt,
   Pedido,
+  PedidoFood,
 } from '../entities/index';
 import { envs } from './envs';
 import { DataSource, DataSourceOptions } from 'typeorm';
-import { ClientCustomer } from 'src/entities/clientCustomer.entity';
 
 export const typeOrmConfig: TypeOrmModuleOptions & DataSourceOptions = {
   type: 'postgres',
-  host: 'postgres',
+  host: envs.db.host,
   port: envs.db.port,
   password: envs.db.password,
   username: envs.db.username,
   database: envs.db.database,
   entities: [
-    User,
     Auth,
+    BaseUser,
     ClientApp,
+    ClientCustomer,
     Company,
     CompanyRepresentative,
     DiningRoom,
@@ -38,12 +42,14 @@ export const typeOrmConfig: TypeOrmModuleOptions & DataSourceOptions = {
     InvoiceData,
     PaymentReceipt,
     Pedido,
-    ClientCustomer,
+    PedidoFood,
+    Permission,
+    Role,
   ],
   migrations: [path.join(__dirname, '../database/migrations/*{.ts,.js}')],
   migrationsTableName: 'migrations_history',
   synchronize: envs.node_env !== 'production',
-  logging: true,
+  logging: ['error', 'schema'],
 };
 
 export const dataSource = new DataSource(typeOrmConfig);

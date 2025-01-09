@@ -3,31 +3,45 @@ import {
   PrimaryGeneratedColumn,
   Column,
   ManyToOne,
-  ManyToMany,
-  JoinTable,
+  OneToMany,
 } from 'typeorm';
 import { Employee } from './employee.entity';
 import { DiningRoom } from './diningRoom.entity';
-import { Food } from './food.entity';
+import { ClientCustomer } from './clientCustomer.entity';
+import { PedidoFood } from './pedido.food.entity';
 
 @Entity()
 export class Pedido {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({ name: 'order_date' })
   orderDate: Date;
 
+  // TODO -> crear entidad pedido_statuses
   @Column()
   status: string;
 
-  @ManyToOne(() => Employee, (employee) => employee.pedidos)
+  @ManyToOne(() => Employee, (employee) => employee.pedidos, {
+    nullable: true,
+    onDelete: 'CASCADE',
+  })
   employee: Employee;
 
-  @ManyToOne(() => DiningRoom, (diningroom) => diningroom.pedidos)
-  diningroom: DiningRoom;
+  @ManyToOne(() => ClientCustomer, (clientCustomer) => clientCustomer.pedidos, {
+    nullable: true,
+    onDelete: 'CASCADE',
+  })
+  clientCustomer: ClientCustomer;
 
-  @ManyToMany(() => Food, (food) => food.pedidos)
-  @JoinTable()
-  viandas: Food[];
+  @ManyToOne(() => DiningRoom, (diningRoom) => diningRoom.pedidos, {
+    onDelete: 'CASCADE',
+  })
+  diningRoom: DiningRoom;
+
+  @OneToMany(() => PedidoFood, (pedidoFood) => pedidoFood.pedido)
+  pedidosFood: PedidoFood[];
+
+  @Column({ default: false })
+  isWeeklyOrder: boolean;
 }
