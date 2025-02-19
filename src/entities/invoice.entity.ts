@@ -3,36 +3,38 @@ import {
   PrimaryGeneratedColumn,
   Column,
   ManyToOne,
-  // OneToOne,
-  // JoinColumn,
   CreateDateColumn,
   UpdateDateColumn,
   OneToOne,
   JoinColumn,
+  ManyToMany,
+  JoinTable,
 } from 'typeorm';
-// import { PaymentReceipt } from './paymentReceipt.entity';
 import { Company } from './company.entity';
 import { ClientApp } from './clientApp.entity';
 import { ClientCustomer } from './clientCustomer.entity';
 import { PaymentReceipt } from './paymentReceipt.entity';
+import { InvoiceStatuses } from './invoiceStatuses.entity';
+import { InvoiceTaxDetail } from './invoiceTaxDetail.entity';
 
 @Entity()
 export class Invoice {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ name: 'tax_number' })
-  taxNumber: string;
+  @OneToOne(() => InvoiceTaxDetail, (taxDetail) => taxDetail.invoice, {
+    cascade: true,
+  })
+  @JoinColumn()
+  taxDetail: InvoiceTaxDetail;
 
-  @Column('decimal', { precision: 10, scale: 2 })
-  monto: number;
-
-  @Column()
-  fecha: Date;
+  @Column({ name: 'invoice_url' })
+  invoiceUrl: string;
 
   //TODO -> crear entidad invoice_statuses
-  @Column()
-  status: string; // 'pendiente', 'pagada', 'vencida'
+  @OneToOne(() => InvoiceStatuses, { onDelete: 'SET NULL' })
+  @JoinColumn()
+  invoiceStatus: InvoiceStatuses;
 
   @ManyToOne(() => Company, (company) => company.invoices)
   company: Company;
@@ -49,9 +51,9 @@ export class Invoice {
   )
   clientCustomer: ClientCustomer;
 
-  @OneToOne(() => PaymentReceipt, { onDelete: 'NO ACTION' })
-  @JoinColumn()
-  paymentReceipt: PaymentReceipt;
+  @ManyToMany(() => PaymentReceipt)
+  @JoinTable()
+  receipts: PaymentReceipt[];
 
   @CreateDateColumn({ name: 'created_date' })
   createdDate: Date;

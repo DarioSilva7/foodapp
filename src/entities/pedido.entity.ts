@@ -12,13 +12,12 @@ import { PedidoFood } from './pedido.food.entity';
 
 @Entity()
 export class Pedido {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn('increment')
+  id: number;
 
   @Column({ name: 'order_date' })
   orderDate: Date;
 
-  // TODO -> crear entidad pedido_statuses
   @Column()
   status: string;
 

@@ -34,6 +34,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
       correlationId: 'request.correlationId',
       message: `${exception instanceof Error ? exception.message : 'Unknown error'}`,
     };
+    console.log('🚀 ~ AllExceptionsFilter ~ responseBody:', responseBody);
 
     this.logger.error(
       `Exception: ${exception instanceof Error ? exception.message : 'Unknown error'}`,
@@ -46,6 +47,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
         url: request.url,
         userAgent: request.get('user-agent') || '',
         ip: request.ip,
+        body: request.body,
       },
       'ExceptionsFilter',
     );

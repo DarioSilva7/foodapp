@@ -3,52 +3,70 @@ import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
 import {
   CreateClientAppDto,
-  CreateEmpleadoDto,
-  CreateEmpresaRepresentanteDto,
-  CreateBaseUserDto,
+  CreateClientCustomerDto,
+  CreateCompanyRepresentativeDto,
+  CreateEmployeeDto,
 } from '../user/dto/index';
+import { UserTypeEnum } from '../../auth/enums/user.type.enum';
+import { Public } from 'src/auth/decorators/public.decorator';
 
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
+  @Public()
   @UseGuards(AuthGuard('local'))
   @Post('login')
   async login(@Request() req) {
     return this.authService.login(req.user);
   }
 
+  @Public()
   @Post('register/client-app')
   async registerClienteApp(@Body() createClientAppDto: CreateClientAppDto) {
-    return this.authService.register({
-      ...createClientAppDto,
-      role: 'client_app',
-    });
+    const { baseUser, ...rest } = createClientAppDto;
+    return this.authService.registerUserFactory(
+      baseUser,
+      rest,
+      UserTypeEnum.USER_CLIENT,
+    );
   }
 
+  @Public()
   @Post('register/client-customer')
-  async registerClienteCustomer(@Body() createClientAppDto: CreateBaseUserDto) {
-    return this.authService.register({
-      ...createClientAppDto,
-      role: 'client_customer',
-    });
+  async registerClienteCustomer(
+    @Body() createClientCustomerDto: CreateClientCustomerDto,
+  ) {
+    const { baseUser, ...rest } = createClientCustomerDto;
+    return this.authService.registerUserFactory(
+      baseUser,
+      rest,
+      UserTypeEnum.USER_CUSTOMER,
+    );
   }
 
+  @Public()
   @Post('register/company-representative')
   async registerEmpresaRepresentante(
-    @Body() createEmpresaRepresentanteDto: CreateEmpresaRepresentanteDto,
+    @Body() createEmpresaRepresentanteDto: CreateCompanyRepresentativeDto,
   ) {
-    return this.authService.register({
-      ...createEmpresaRepresentanteDto,
-      role: 'company_representative',
-    });
+    const { baseUser, ...rest } = createEmpresaRepresentanteDto;
+    return this.authService.registerUserFactory(
+      baseUser,
+      rest,
+      UserTypeEnum.USER_REPRESENTATIVE,
+    );
   }
 
+  @Public()
   @Post('register/employee')
-  async registerEmpleado(@Body() createEmpleadoDto: CreateEmpleadoDto) {
-    return this.authService.register({
-      ...createEmpleadoDto,
-      role: 'employee',
-    });
+  async registerEmpleado(@Body() createEmpleadoDto: CreateEmployeeDto) {
+    console.log('🚀 ~ AuthController ~ createEmpleadoDto:', createEmpleadoDto);
+    const { baseUser, ...rest } = createEmpleadoDto;
+    return this.authService.registerUserFactory(
+      baseUser,
+      rest,
+      UserTypeEnum.EMPLOYEE,
+    );
   }
 }

@@ -10,6 +10,9 @@ import {
 import { UserService } from './user.service';
 import { CreateBaseUserDto } from './dto/create-base-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { UserType } from 'src/auth/decorators/usertype.decorator';
+import { UserTypeEnum } from 'src/auth/enums/user.type.enum';
+import { Public } from 'src/auth/decorators/public.decorator';
 
 @Controller('user')
 export class UserController {
@@ -25,9 +28,11 @@ export class UserController {
     return this.userService.findAll();
   }
 
-  @Get(':id')
+  @Public()
+  @UserType(UserTypeEnum.USER_CLIENT)
+  @Get('client-app-data/:id')
   findOne(@Param('id') id: string) {
-    return this.userService.findOne(+id);
+    return this.userService.findOne(id);
   }
 
   @Patch(':id')

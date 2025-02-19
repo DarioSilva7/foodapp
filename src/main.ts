@@ -1,21 +1,22 @@
-import { HttpAdapterHost, NestFactory } from '@nestjs/core';
+import { NestFactory, Reflector } from '@nestjs/core';
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 import { AppModule } from './app.module';
-import { AllExceptionsFilter } from './common/filters/all-exceptions.filter';
+// import { AllExceptionsFilter } from './common/filters/all-exceptions.filter';
 import { LoggingInterceptor } from './common/interceptors/logging.interceptors';
 import { envs } from './config/envs';
+import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const logger = new Logger('Main');
-  const httpAdapter = app.get(HttpAdapterHost);
+  // const httpAdapter = app.get(HttpAdapterHost);
 
   app.setGlobalPrefix('api');
 
-  app.useGlobalFilters(new AllExceptionsFilter(httpAdapter, logger));
+  // app.useGlobalFilters(new AllExceptionsFilter(httpAdapter, logger));
   app.useGlobalInterceptors(new LoggingInterceptor(logger));
 
   app.useGlobalPipes(
@@ -39,6 +40,9 @@ async function bootstrap() {
   //   req.user = req.user || { id: 'anonymous' };
   //   next();
   // });
+
+  const reflector = app.get(Reflector);
+  app.useGlobalGuards(new JwtAuthGuard(reflector));
 
   await app.listen(envs.port, () => {
     Logger.log(`🚀 Server running on port: ${envs.port}`, 'MAIN');

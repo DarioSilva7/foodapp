@@ -4,7 +4,7 @@ import {
   ManyToOne,
   OneToMany,
   OneToOne,
-  PrimaryGeneratedColumn,
+  PrimaryColumn,
 } from 'typeorm';
 import { BaseUser } from './baseUser.entity';
 import { Company } from './company.entity';
@@ -12,8 +12,12 @@ import { Pedido } from './pedido.entity';
 
 @Entity()
 export class Employee {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryColumn('uuid')
+  base_user_id: string;
+
+  @OneToOne(() => BaseUser, { cascade: true, onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'base_user_id' })
+  baseUser: BaseUser;
 
   @ManyToOne(() => Company, (company) => company.employees, {
     onDelete: 'CASCADE',
@@ -22,8 +26,4 @@ export class Employee {
 
   @OneToMany(() => Pedido, (pedido) => pedido.employee)
   pedidos: Pedido[];
-
-  @OneToOne(() => BaseUser, { cascade: true, onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'id_base_user' })
-  baseUser: BaseUser;
 }

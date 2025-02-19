@@ -3,7 +3,7 @@ import {
   JoinColumn,
   OneToMany,
   OneToOne,
-  PrimaryGeneratedColumn,
+  PrimaryColumn,
 } from 'typeorm';
 import { InvoiceData } from './index';
 import { Invoice } from './invoice.entity';
@@ -12,11 +12,11 @@ import { Pedido } from './pedido.entity';
 
 @Entity()
 export class ClientCustomer {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryColumn('uuid')
+  base_user_id: string;
 
   @OneToOne(() => BaseUser, { cascade: true, onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'id_base_user' })
+  @JoinColumn({ name: 'base_user_id' })
   baseUser: BaseUser;
 
   @OneToOne(() => InvoiceData, (invoiceData) => invoiceData.clientCustomer, {

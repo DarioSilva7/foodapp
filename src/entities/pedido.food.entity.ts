@@ -11,8 +11,8 @@ import { Food } from './food.entity';
 
 @Entity({ name: 'pedido_food' })
 export class PedidoFood {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn('increment')
+  id: number;
 
   @ManyToOne(() => Pedido, (pedido) => pedido.pedidosFood, {
     onDelete: 'CASCADE',

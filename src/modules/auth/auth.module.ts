@@ -9,18 +9,50 @@ import { LocalStrategy } from './strategies/local.strategy';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { BaseUser } from 'src/entities/baseUser.entity';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
+// import {
+//   AuthRepository,
+//   ClientAppRepository,
+//   ClientCustomerRepository,
+//   CompanyRepresentativeRepository,
+//   EmployeeRepository,
+//   BaseUserRepository,
+// } from 'src/repositories';
+import { Auth } from 'src/entities/auth.entity';
+import { ClientCustomer } from 'src/entities/clientCustomer.entity';
+import { ClientApp } from 'src/entities/clientApp.entity';
+import { Employee } from 'src/entities/employee.entity';
+import { CompanyRepresentative } from 'src/entities/companyRepresentative.entity';
+import { envs } from 'src/config/envs';
 
 @Module({
   imports: [
-    UserModule, // para usar UserService y UserRepository
+    UserModule, // para usar UserService y BaseUserRepository
     PassportModule,
-    TypeOrmModule.forFeature([BaseUser]),
+    TypeOrmModule.forFeature([
+      Auth,
+      BaseUser,
+      CompanyRepresentative,
+      ClientCustomer,
+      ClientApp,
+      Employee,
+    ]),
     JwtModule.register({
-      secret: process.env.JWT_SECRET,
+      secret: envs.jwt_secret,
       signOptions: { expiresIn: '60m' },
     }),
   ],
-  providers: [AuthService, LocalStrategy, JwtStrategy, RolesGuard],
+  providers: [
+    AuthService,
+    LocalStrategy,
+    JwtStrategy,
+    RolesGuard,
+    // AuthRepository,
+    // BaseUserRepository,
+    // ClientAppRepository,
+    // ClientCustomerRepository,
+    // EmployeeRepository,
+    // CompanyRepresentativeRepository,
+  ],
   controllers: [AuthController],
   exports: [AuthService, RolesGuard],
 })

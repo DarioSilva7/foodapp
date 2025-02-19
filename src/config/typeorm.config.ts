@@ -6,7 +6,6 @@ import {
   ClientApp,
   ClientCustomer,
   Permission,
-  Role,
   Company,
   CompanyRepresentative,
   DiningRoom,
@@ -17,9 +16,12 @@ import {
   PaymentReceipt,
   Pedido,
   PedidoFood,
+  InvoiceTaxDetail,
 } from '../entities/index';
 import { envs } from './envs';
 import { DataSource, DataSourceOptions } from 'typeorm';
+import { InvoiceStatuses } from 'src/entities/invoiceStatuses.entity';
+import { InvoiceStatusHistory } from 'src/entities/invoiceStatusHistory.entity';
 
 export const typeOrmConfig: TypeOrmModuleOptions & DataSourceOptions = {
   type: 'postgres',
@@ -40,15 +42,17 @@ export const typeOrmConfig: TypeOrmModuleOptions & DataSourceOptions = {
     Food,
     Invoice,
     InvoiceData,
+    InvoiceStatuses,
+    InvoiceStatusHistory,
+    InvoiceTaxDetail,
     PaymentReceipt,
     Pedido,
     PedidoFood,
     Permission,
-    Role,
   ],
   migrations: [path.join(__dirname, '../database/migrations/*{.ts,.js}')],
   migrationsTableName: 'migrations_history',
-  synchronize: envs.node_env !== 'production',
+  synchronize: envs.node_env == 'development',
   logging: ['error', 'schema'],
 };
 

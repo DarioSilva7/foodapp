@@ -5,6 +5,7 @@ import {
   Entity,
   OneToOne,
   UpdateDateColumn,
+  JoinColumn,
 } from 'typeorm';
 import { BaseUser } from './baseUser.entity';
 
@@ -31,6 +32,10 @@ export class Auth {
   @UpdateDateColumn({ name: 'updated_date' })
   updatedDate: Date;
 
-  @OneToOne(() => BaseUser, (baseUser) => baseUser.auth)
+  @OneToOne(() => BaseUser, {
+    cascade: true,
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn()
   baseUser: BaseUser;
 }

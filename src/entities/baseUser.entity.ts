@@ -5,12 +5,9 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToOne,
-  JoinColumn,
-  ManyToMany,
-  JoinTable,
 } from 'typeorm';
 import { Auth } from './auth.entity';
-import { Role } from './role.entity';
+import { UserTypeEnum } from 'src/auth/enums/user.type.enum';
 
 @Entity({ name: 'base_user' })
 export class BaseUser {
@@ -29,17 +26,15 @@ export class BaseUser {
   @Column({ name: 'phone_number', nullable: true })
   phoneNumber: string;
 
+  @Column({ type: 'enum', enum: UserTypeEnum, nullable: true })
+  userType: UserTypeEnum;
+
   @CreateDateColumn({ name: 'created_date' })
   createdDate: Date;
 
   @UpdateDateColumn({ name: 'updated_date' })
   updatedDate: Date;
 
-  @OneToOne(() => Auth, (auth) => auth.baseUser, { cascade: true })
-  @JoinColumn()
+  @OneToOne(() => Auth, (auth) => auth.baseUser)
   auth: Auth;
-
-  @ManyToMany(() => Role)
-  @JoinTable({})
-  roles: Role[];
 }

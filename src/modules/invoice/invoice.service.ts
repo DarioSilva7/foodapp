@@ -8,6 +8,7 @@ import { Repository } from 'typeorm';
 import { Invoice, PaymentReceipt } from '../../entities/index';
 import { CreateInvoiceDto } from './dto/create-invoice.dto';
 import { CreatePaymentReceiptDto } from './dto/create-payment-receipt.dto';
+import { InvoiceStatusesEnum } from './enums/invoiceStatuses.enum';
 
 @Injectable()
 export class InvoiceService {
@@ -33,7 +34,7 @@ export class InvoiceService {
     if (!invoice) {
       throw new NotFoundException('Invoice no encontrada');
     }
-    if (invoice.status === 'pagada') {
+    if (invoice.invoiceStatus.status === InvoiceStatusesEnum.ABONADA) {
       throw new BadRequestException('Esta factura ya ha sido pagada');
     }
 
@@ -42,20 +43,20 @@ export class InvoiceService {
     );
     await this.PaymentReceiptRepository.save(paymentReceipt);
 
-    invoice.paymentReceipt = paymentReceipt;
-    invoice.status = 'pagada';
+    // invoice.paymentReceipt = paymentReceipt;
+    invoice.invoiceStatus.status = InvoiceStatusesEnum.ABONADA;
     return await this.invoiceRepository.save(invoice);
   }
 
   async obtenerFacturasPendientes(companyId: string): Promise<Invoice[]> {
     return await this.invoiceRepository.find({
-      where: { company: { id: companyId }, status: 'pendiente' },
+      where: { company: { id: companyId } }, //invoiceStatus: 'pendiente' },
     });
   }
 
   async obtenerFacturasClienteApp(clientAppId: string): Promise<Invoice[]> {
     return await this.invoiceRepository.find({
-      where: { clientApp: { id: clientAppId } },
+      where: { clientApp: { base_user_id: clientAppId } },
     });
   }
 }

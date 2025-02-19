@@ -1,12 +1,14 @@
 import * as joi from 'joi';
 import { config } from 'dotenv';
-import { resolve } from 'path';
+// import { resolve } from 'path';
 
-const envFile = `.env.${process.env.NODE_ENV || 'local'}`;
-config({ path: resolve(__dirname, '..', envFile) });
+// const envFile = `.env.${process.env.NODE_ENV || 'local'}`;
+// config({ path: resolve(__dirname, '..', envFile) });
+config();
 
 interface envsI {
   node_env: string;
+  npm_package_version: string;
   port: number;
   jwt_secret: string;
   db: {
@@ -21,6 +23,7 @@ interface envsI {
 const envsSchema = joi
   .object({
     NODE_ENV: joi.string().optional().default('local'),
+    PACKAGE_VERSION: joi.string().default('1.0'),
     PORT: joi.number().required(),
     JWT_SECRET: joi.string().required(),
     DB_PORT: joi.number().required(),
@@ -39,6 +42,7 @@ if (error) {
 
 export const envs: envsI = {
   node_env: envsVarsValue.NODE_ENV,
+  npm_package_version: envsVarsValue.npm_package_version,
   port: envsVarsValue.PORT,
   jwt_secret: envsVarsValue.JWT_SECRET,
   db: {

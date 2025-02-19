@@ -1,11 +1,10 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { Pedido } from './pedido.entity';
 import { PedidoFood } from './pedido.food.entity';
 
 @Entity()
 export class Food {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn('increment')
+  id: number;
 
   @Column()
   name: string;
@@ -23,5 +22,5 @@ export class Food {
   isAvailableThisWeek: boolean; //vianda disponible para la semana actual
 
   @OneToMany(() => PedidoFood, (pedidoFood) => pedidoFood.food)
-  pedidosFood: Pedido[];
+  pedidosFood: PedidoFood[];
 }

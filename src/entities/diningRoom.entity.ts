@@ -12,8 +12,8 @@ import { Company, Pedido } from './index';
 
 @Entity()
 export class DiningRoom {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn('increment')
+  id: number;
 
   @Column()
   name: string;

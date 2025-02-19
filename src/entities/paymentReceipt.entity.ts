@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from 'typeorm';
 import { Invoice } from './invoice.entity';
 
 @Entity()
@@ -18,6 +18,9 @@ export class PaymentReceipt {
   @Column({ name: 'url_file' })
   archivoUrl: string;
 
-  @OneToOne(() => Invoice, (invoice) => invoice.paymentReceipt)
-  invoice: Invoice;
+  // @ManyToOne(() => Invoice, (invoice) => invoice.paymentReceipt)
+  // invoice: Invoice;
+
+  @ManyToMany(() => Invoice)
+  invoices: Invoice[];
 }
