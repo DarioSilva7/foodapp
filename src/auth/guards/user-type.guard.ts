@@ -1,6 +1,7 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { UserService } from '../../modules/user/user.service';
+import { UserTypeEnum } from '../enums/user.type.enum';
 
 @Injectable()
 export class UserTypeGuard implements CanActivate {
@@ -11,17 +12,23 @@ export class UserTypeGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
-    const user = request.user; // Se asume que ya está autenticado
-    const requiredType = this.reflector.get<string>(
-      'userType',
-      context.getHandler(),
-    );
+    const user: {
+      userId: string;
+      email: string;
+      role: UserTypeEnum;
+    } = request.user; // Se asume que ya está autenticado
+    console.log('🚀 ~ UserTypeGuard ~ canActivate ~ user:', user);
+    const requiredType =
+      this.reflector.getAllAndOverride<UserTypeEnum[]>('userType', [
+        context.getHandler(),
+        context.getClass(),
+      ]) || [];
 
-    if (!user || !requiredType) {
+    if (requiredType.includes(UserTypeEnum.USER)) return true;
+
+    if (!user || requiredType.length === 0) {
       return false;
     }
-
-    const userType = await this.userService.getUserType(user.id);
-    return userType === requiredType;
+    return requiredType.includes(user.role);
   }
 }
