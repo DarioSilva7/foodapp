@@ -4,10 +4,11 @@ import {
   Injectable,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { UserService } from '../user/user.service';
+import { InjectRepository } from '@nestjs/typeorm';
 import * as bcryptjs from 'bcryptjs';
-import { UserTypeEnum } from '../../auth/enums/user.type.enum';
 import { DataSource, Repository } from 'typeorm';
+
+import { UserTypeEnum } from '../../auth/enums/user.type.enum';
 import {
   Auth,
   BaseUser,
@@ -16,8 +17,9 @@ import {
   CompanyRepresentative,
   Employee,
 } from '../../entities';
-import { InjectRepository } from '@nestjs/typeorm';
 import { CreateBaseUserDto } from '../user/dto';
+import { UserService } from '../user/user.service';
+
 import { loginDto } from './dto/login-dto';
 import { ValidateUserDto } from './dto/validate.user.type.dto';
 

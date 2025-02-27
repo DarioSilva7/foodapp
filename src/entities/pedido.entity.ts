@@ -5,9 +5,10 @@ import {
   ManyToOne,
   OneToMany,
 } from 'typeorm';
-import { Employee } from './employee.entity';
-import { DiningRoom } from './diningRoom.entity';
+
 import { ClientCustomer } from './clientCustomer.entity';
+import { DiningRoom } from './diningRoom.entity';
+import { Employee } from './employee.entity';
 import { PedidoFood } from './pedido.food.entity';
 
 @Entity()

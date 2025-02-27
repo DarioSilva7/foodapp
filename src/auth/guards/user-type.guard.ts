@@ -1,5 +1,6 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
+
 import { UserService } from '../../modules/user/user.service';
 import { UserTypeEnum } from '../enums/user.type.enum';
 

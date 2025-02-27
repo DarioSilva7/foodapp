@@ -1,14 +1,16 @@
 import { Controller, Post, UseGuards, Request, Body } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { AuthService } from './auth.service';
+import { Public } from 'src/auth/decorators/public.decorator';
+
+import { UserTypeEnum } from '../../auth/enums/user.type.enum';
 import {
   CreateClientAppDto,
   CreateClientCustomerDto,
   CreateCompanyRepresentativeDto,
   CreateEmployeeDto,
 } from '../user/dto/index';
-import { UserTypeEnum } from '../../auth/enums/user.type.enum';
-import { Public } from 'src/auth/decorators/public.decorator';
+
+import { AuthService } from './auth.service';
 
 @Controller('auth')
 export class AuthController {

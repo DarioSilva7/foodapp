@@ -1,3 +1,4 @@
+import { UserTypeEnum } from 'src/auth/enums/user.type.enum';
 import {
   Column,
   PrimaryGeneratedColumn,
@@ -6,8 +7,8 @@ import {
   UpdateDateColumn,
   OneToOne,
 } from 'typeorm';
+
 import { Auth } from './auth.entity';
-import { UserTypeEnum } from 'src/auth/enums/user.type.enum';
 
 @Entity({ name: 'base_user' })
 export class BaseUser {

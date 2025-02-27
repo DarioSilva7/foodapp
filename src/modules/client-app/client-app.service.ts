@@ -7,7 +7,9 @@ import {
 } from '@nestjs/common';
 // import * as bcryptjs from 'bcryptjs';
 
-import { UpdateClientAppDto } from './dto/update-client-app.dto';
+import { InjectDataSource } from '@nestjs/typeorm';
+import { DataSource } from 'typeorm';
+
 import {
   InvoiceDataRepository,
   AuthRepository,
@@ -15,9 +17,10 @@ import {
 } from '../../repositories/index';
 // import { Auth, ClientApp, InvoiceData, BaseUser } from '../../entities/index';
 // import { generateSecureOTP } from 'src/utils/OTP';
-import { DataSource } from 'typeorm';
-import { InjectDataSource } from '@nestjs/typeorm';
+
 import { CreateClientAppDto } from '../user/dto';
+
+import { UpdateClientAppDto } from './dto/update-client-app.dto';
 // import { UserTypeEnum } from 'src/auth/enums/role.enum';
 
 @Injectable()

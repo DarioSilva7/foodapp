@@ -1,13 +1,15 @@
 import { Module } from '@nestjs/common';
-import { ClientAppService } from './client-app.service';
-import { ClientAppController } from './client-app.controller';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { ClientApp } from 'src/entities';
+
 import {
   AuthRepository,
   ClientAppRepository,
   InvoiceDataRepository,
 } from '../../repositories/index';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { ClientApp } from 'src/entities';
+
+import { ClientAppController } from './client-app.controller';
+import { ClientAppService } from './client-app.service';
 
 @Module({
   controllers: [ClientAppController],

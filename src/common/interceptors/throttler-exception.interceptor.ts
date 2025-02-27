@@ -7,9 +7,9 @@ import {
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
+import { ThrottlerException } from '@nestjs/throttler';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { ThrottlerException } from '@nestjs/throttler';
 
 @Injectable()
 export class ThrottlerExceptionInterceptor implements NestInterceptor {

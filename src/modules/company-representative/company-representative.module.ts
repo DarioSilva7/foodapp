@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common';
-import { CompanyRepresentativeService } from './company-representative.service';
-import { CompanyRepresentativeController } from './company-representative.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
+
 import { CompanyRepresentative } from '../../entities/index';
 import { CompanyRepresentativeRepository } from '../../repositories/index';
+
+import { CompanyRepresentativeController } from './company-representative.controller';
+import { CompanyRepresentativeService } from './company-representative.service';
 
 @Module({
   controllers: [CompanyRepresentativeController],

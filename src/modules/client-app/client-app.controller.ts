@@ -7,9 +7,11 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
+
+import { CreateClientAppDto } from '../user/dto';
+
 import { ClientAppService } from './client-app.service';
 import { UpdateClientAppDto } from './dto/update-client-app.dto';
-import { CreateClientAppDto } from '../user/dto';
 
 @Controller('client-app')
 export class ClientAppController {

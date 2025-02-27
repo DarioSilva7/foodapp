@@ -1,11 +1,13 @@
-// src/database/database.controller.ts
 import { Controller, Post, Get, UseGuards } from '@nestjs/common';
 import { Throttle } from '@nestjs/throttler';
-import { DatabaseService } from './database.service';
+
 // import { ThrottlerRolesGuard } from '../auth/guards/throttler-roles.guard';
-import { Roles } from '../auth/decorators/roles.decorator';
+import { UserType } from '../auth/decorators/usertype.decorator';
+import { UserTypeEnum } from '../auth/enums/user.type.enum';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
+
+import { DatabaseService } from './database.service';
 
 @Controller('database')
 // @UseGuards(JwtAuthGuard, ThrottlerRolesGuard)
@@ -14,7 +16,7 @@ export class DatabaseController {
   constructor(private readonly databaseService: DatabaseService) {}
 
   @Post('migrate')
-  @Roles('admin')
+  @UserType(UserTypeEnum.ADMIN)
   @Throttle({ options: { limit: 3, ttl: 1000 } }) // 3 llamadas por segundo
   async runMigrations() {
     const migrations = await this.databaseService.runMigrations();
@@ -22,7 +24,7 @@ export class DatabaseController {
   }
 
   @Post('revert')
-  @Roles('admin')
+  @UserType(UserTypeEnum.ADMIN)
   @Throttle({ options: { limit: 3, ttl: 1000 } }) // 3 llamadas por segundo
   async revertLastMigration() {
     const migration = await this.databaseService.revertLastMigration();
@@ -30,7 +32,7 @@ export class DatabaseController {
   }
 
   @Get('status')
-  @Roles('admin')
+  @UserType(UserTypeEnum.ADMIN)
   @Throttle({ options: { limit: 20, ttl: 10000 } }) // 5 llamadas por 10 segundos
   async getDatabaseStatus() {
     const connection = await this.databaseService.getConnection();

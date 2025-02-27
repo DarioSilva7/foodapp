@@ -8,12 +8,13 @@ import {
   Delete,
   UseGuards,
 } from '@nestjs/common';
-import { CompanyService } from './company.service';
-import { CreateCompanyDto } from './dto/create-company.dto';
-import { UpdateCompanyDto } from './dto/update-company.dto';
 import { UserType } from 'src/auth/decorators/usertype.decorator';
 import { UserTypeEnum } from 'src/auth/enums/user.type.enum';
 import { UserTypeGuard } from 'src/auth/guards/user-type.guard';
+
+import { CompanyService } from './company.service';
+import { CreateCompanyDto } from './dto/create-company.dto';
+import { UpdateCompanyDto } from './dto/update-company.dto';
 
 @UseGuards(UserTypeGuard)
 @UserType(UserTypeEnum.ADMIN)

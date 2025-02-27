@@ -6,6 +6,7 @@ import {
   OneToOne,
   PrimaryColumn,
 } from 'typeorm';
+
 import { BaseUser } from './baseUser.entity';
 import { Company } from './company.entity';
 import { Pedido } from './pedido.entity';

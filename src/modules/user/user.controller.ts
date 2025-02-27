@@ -7,12 +7,13 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { UserService } from './user.service';
-import { CreateBaseUserDto } from './dto/create-base-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { Public } from 'src/auth/decorators/public.decorator';
 import { UserType } from 'src/auth/decorators/usertype.decorator';
 import { UserTypeEnum } from 'src/auth/enums/user.type.enum';
-import { Public } from 'src/auth/decorators/public.decorator';
+
+import { CreateBaseUserDto } from './dto/create-base-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
+import { UserService } from './user.service';
 
 @Controller('user')
 export class UserController {

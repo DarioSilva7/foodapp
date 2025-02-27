@@ -1,5 +1,10 @@
-import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import * as path from 'path';
+
+import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { InvoiceStatuses } from 'src/entities/invoiceStatuses.entity';
+import { InvoiceStatusHistory } from 'src/entities/invoiceStatusHistory.entity';
+import { DataSource, DataSourceOptions } from 'typeorm';
+
 import {
   Auth,
   BaseUser,
@@ -18,10 +23,8 @@ import {
   PedidoFood,
   InvoiceTaxDetail,
 } from '../entities/index';
+
 import { envs } from './envs';
-import { DataSource, DataSourceOptions } from 'typeorm';
-import { InvoiceStatuses } from 'src/entities/invoiceStatuses.entity';
-import { InvoiceStatusHistory } from 'src/entities/invoiceStatusHistory.entity';
 
 export const typeOrmConfig: TypeOrmModuleOptions & DataSourceOptions = {
   type: 'postgres',

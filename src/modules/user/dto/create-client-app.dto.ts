@@ -1,12 +1,14 @@
+import { Type } from 'class-transformer';
 import {
   IsNotEmpty,
   IsObject,
   IsString,
   ValidateNested,
 } from 'class-validator';
-import { Type } from 'class-transformer';
-import { CreateBaseUserDto } from './create-base-user.dto';
+
 import { CreateInvoiceDataDto } from '../../company/dto/create-invoice-data.dto';
+
+import { CreateBaseUserDto } from './create-base-user.dto';
 
 export class CreateClientAppDto {
   @IsString()

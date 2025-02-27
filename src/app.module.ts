@@ -1,13 +1,14 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+
 import { AppController } from './app.controller';
-import { UserModule } from './modules/user/user.module';
+import { typeOrmConfig } from './config/typeorm.config';
+import { DatabaseModule } from './database/database.module';
 import { LoggingModule } from './logging/logging.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { CompanyModule } from './modules/company/company.module';
 import { InvoiceModule } from './modules/invoice/invoice.module';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { typeOrmConfig } from './config/typeorm.config';
-import { DatabaseModule } from './database/database.module';
+import { UserModule } from './modules/user/user.module';
 // import { ThrottlerModule } from '@nestjs/throttler';
 // import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 // import { ThrottlerExceptionInterceptor } from './common/interceptors/throttler-exception.interceptor';

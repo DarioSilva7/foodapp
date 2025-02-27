@@ -1,10 +1,12 @@
 import { Module } from '@nestjs/common';
-import { ClientCustomerService } from './client-customer.service';
-import { ClientCustomerController } from './client-customer.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ClientCustomer } from '../../entities/index';
 import { InvoiceDataRepository } from 'src/repositories';
 import { ClientCustomerRepository } from 'src/repositories/clientCustomer.repository';
+
+import { ClientCustomer } from '../../entities/index';
+
+import { ClientCustomerController } from './client-customer.controller';
+import { ClientCustomerService } from './client-customer.service';
 
 @Module({
   controllers: [ClientCustomerController],

@@ -6,9 +6,10 @@ import {
   OneToMany,
   PrimaryColumn,
 } from 'typeorm';
+
 import { BaseUser } from './baseUser.entity';
-import { InvoiceData } from './invoiceData.entity';
 import { Invoice } from './invoice.entity';
+import { InvoiceData } from './invoiceData.entity';
 
 @Entity()
 export class ClientApp {

@@ -7,6 +7,7 @@ import {
   UpdateDateColumn,
   JoinColumn,
 } from 'typeorm';
+
 import { BaseUser } from './baseUser.entity';
 
 @Entity()

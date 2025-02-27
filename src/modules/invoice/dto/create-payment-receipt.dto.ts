@@ -1,5 +1,5 @@
-import { IsString, IsDate, IsUrl } from 'class-validator';
 import { Type } from 'class-transformer';
+import { IsString, IsDate, IsUrl } from 'class-validator';
 
 export class CreatePaymentReceiptDto {
   @IsString()

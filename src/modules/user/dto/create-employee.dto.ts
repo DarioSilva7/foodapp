@@ -1,6 +1,6 @@
+import { Type } from 'class-transformer';
 import { IsNotEmpty, IsString, ValidateNested } from 'class-validator';
 import { CreateBaseUserDto } from 'src/modules/user/dto';
-import { Type } from 'class-transformer';
 
 export class CreateEmployeeDto {
   @ValidateNested()

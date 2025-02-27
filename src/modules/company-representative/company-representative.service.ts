@@ -1,7 +1,9 @@
 import { Injectable, ServiceUnavailableException } from '@nestjs/common';
-import { CreateCompanyRepresentativeDto } from '../user/dto/create-company-representative.dto';
-import { UpdateCompanyRepresentativeDto } from './dto/update-company-representative.dto';
 import { CompanyRepresentativeRepository } from 'src/repositories';
+
+import { CreateCompanyRepresentativeDto } from '../user/dto/create-company-representative.dto';
+
+import { UpdateCompanyRepresentativeDto } from './dto/update-company-representative.dto';
 
 @Injectable()
 export class CompanyRepresentativeService {

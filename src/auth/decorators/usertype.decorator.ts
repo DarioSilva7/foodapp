@@ -1,4 +1,5 @@
 import { SetMetadata } from '@nestjs/common';
+
 import { UserTypeEnum } from '../enums/user.type.enum';
 
 export const USER_TYPE_KEY = 'userType';

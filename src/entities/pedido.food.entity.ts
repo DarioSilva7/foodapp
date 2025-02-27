@@ -6,8 +6,9 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Pedido } from './pedido.entity';
+
 import { Food } from './food.entity';
+import { Pedido } from './pedido.entity';
 
 @Entity({ name: 'pedido_food' })
 export class PedidoFood {

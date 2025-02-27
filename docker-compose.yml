@@ -7,7 +7,7 @@ services:
     ports:
       - "${PORT}:${PORT}"
     # env_file:
-    #   - .env.local  # Cambia esto según el entorno (local, dev, prod)
+    #   - .env.local  # Cambiar esto según el entorno (local, dev, prod)
     environment:
       NODE_ENV: ${NODE_ENV:-development}
       PORT: ${PORT}

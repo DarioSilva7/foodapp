@@ -1,14 +1,16 @@
 import { Module } from '@nestjs/common';
-import { UserService } from './user.service';
-import { UserController } from './user.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
+
 import {
   BaseUser,
   ClientApp,
   CompanyRepresentative,
   Employee,
-} from 'src/entities';
-import { BaseUserRepository } from 'src/repositories';
+} from '../../entities/index';
+import { BaseUserRepository } from '../../repositories';
+
+import { UserController } from './user.controller';
+import { UserService } from './user.service';
 
 @Module({
   imports: [

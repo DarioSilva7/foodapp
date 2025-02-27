@@ -6,8 +6,8 @@ import {
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
-import { HttpAdapterHost } from '@nestjs/core';
 import { Logger } from '@nestjs/common';
+import { HttpAdapterHost } from '@nestjs/core';
 
 @Catch()
 export class AllExceptionsFilter implements ExceptionFilter {
@@ -34,20 +34,34 @@ export class AllExceptionsFilter implements ExceptionFilter {
       correlationId: 'request.correlationId',
       message: `${exception instanceof Error ? exception.message : 'Unknown error'}`,
     };
-    console.log('🚀 ~ AllExceptionsFilter ~ responseBody:', responseBody);
 
     this.logger.error(
-      `Exception: ${exception instanceof Error ? exception.message : 'Unknown error'}`,
+      `Exception: ${exception instanceof HttpException ? exception.message : 'Unknown error'}`,
       {
-        exception:
-          exception instanceof Error ? exception.stack : 'No stack trace',
-        correlationId: request.correlationId,
-        userId: request.user?.id || 'anonymous',
+        statusCode: httpStatus,
+        exception: {
+          name:
+            exception instanceof Error ? exception.name : 'UnknownException',
+          message:
+            exception instanceof Error ? exception.message : 'Unknown error',
+          stack:
+            exception instanceof Error ? exception.stack : 'No stack trace',
+        },
+        correlationId:
+          request.headers['x-correlation-id'] || request.correlationId || 'N/A',
+        requestId: request.id || 'N/A',
+        userId: request.user?.id || 'N/A',
+        userRole: request.user?.role || 'N/A',
         method: request.method,
         url: request.url,
-        userAgent: request.get('user-agent') || '',
+        headers: {
+          authorization: request.headers['authorization'] || 'N/A', // Saber si el token estaba presente
+          userAgent: request.headers['user-agent'] || 'N/A',
+        },
         ip: request.ip,
-        body: request.body,
+        body: request.body || {},
+        timestamp: new Date().toISOString(),
+        hostname: request.hostname || 'N/A',
       },
       'ExceptionsFilter',
     );

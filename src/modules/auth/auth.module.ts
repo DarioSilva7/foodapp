@@ -1,14 +1,21 @@
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { envs } from 'src/config/envs';
+import { Auth } from 'src/entities/auth.entity';
+import { BaseUser } from 'src/entities/baseUser.entity';
+import { ClientApp } from 'src/entities/clientApp.entity';
+import { ClientCustomer } from 'src/entities/clientCustomer.entity';
+import { CompanyRepresentative } from 'src/entities/companyRepresentative.entity';
+import { Employee } from 'src/entities/employee.entity';
 import { UserModule } from 'src/modules/user/user.module';
-import { AuthService } from './auth.service';
+
 import { AuthController } from './auth.controller';
+import { AuthService } from './auth.service';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { BaseUser } from 'src/entities/baseUser.entity';
-import { RolesGuard } from 'src/auth/guards/roles.guard';
 // import {
 //   AuthRepository,
 //   ClientAppRepository,
@@ -17,12 +24,6 @@ import { RolesGuard } from 'src/auth/guards/roles.guard';
 //   EmployeeRepository,
 //   BaseUserRepository,
 // } from 'src/repositories';
-import { Auth } from 'src/entities/auth.entity';
-import { ClientCustomer } from 'src/entities/clientCustomer.entity';
-import { ClientApp } from 'src/entities/clientApp.entity';
-import { Employee } from 'src/entities/employee.entity';
-import { CompanyRepresentative } from 'src/entities/companyRepresentative.entity';
-import { envs } from 'src/config/envs';
 
 @Module({
   imports: [

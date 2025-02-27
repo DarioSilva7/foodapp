@@ -1,7 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from 'typeorm';
-import { Company } from './company.entity';
+
 import { ClientApp } from './clientApp.entity';
 import { ClientCustomer } from './clientCustomer.entity';
+import { Company } from './company.entity';
 
 @Entity()
 export class InvoiceData {

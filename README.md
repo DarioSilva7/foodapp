@@ -6,7 +6,7 @@
 
 # Convenciones
 
-<a>Notion Doc</a>
+<a href="https://www.notion.so/Convenciones-77273e2a61d34f9caf81f345a6fa17d8#697d577511f243578d211564a75ea14b">Notion Doc</a>
 
 - branches
 - commits

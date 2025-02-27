@@ -1,10 +1,13 @@
 import { Injectable } from '@nestjs/common';
+import { ClientCustomerRepository } from 'src/repositories/clientCustomer.repository';
+import { InvoiceDataRepository } from 'src/repositories/invoiceData.repository';
+
 import { CreateClientCustomerDto } from '../user/dto/create-client-customer.dto';
+
 import { UpdateClientCustomerDto } from './dto/update-client-customer.dto';
+
 // import { InvoiceData } from 'src/entities';
 // import { ClientCustomer } from 'src/entities/clientCustomer.entity';
-import { InvoiceDataRepository } from 'src/repositories/invoiceData.repository';
-import { ClientCustomerRepository } from 'src/repositories/clientCustomer.repository';
 
 @Injectable()
 export class ClientCustomerService {

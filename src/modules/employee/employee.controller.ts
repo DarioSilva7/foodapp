@@ -7,9 +7,11 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { EmployeeService } from './employee.service';
+
 import { CreateEmployeeDto } from '../user/dto/create-employee.dto';
+
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
+import { EmployeeService } from './employee.service';
 
 @Controller('employee')
 export class EmployeeController {

@@ -1,4 +1,5 @@
 import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+
 import { Invoice } from './invoice.entity';
 
 @Entity({ name: 'invoice_tax_detail' })

@@ -7,8 +7,10 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { CompanyRepresentativeService } from './company-representative.service';
+
 import { CreateCompanyRepresentativeDto } from '../user/dto/create-company-representative.dto';
+
+import { CompanyRepresentativeService } from './company-representative.service';
 import { UpdateCompanyRepresentativeDto } from './dto/update-company-representative.dto';
 
 @Controller('company-representative')

@@ -4,9 +4,9 @@ import {
   ExecutionContext,
   CallHandler,
 } from '@nestjs/common';
+import { Logger } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { Logger } from '@nestjs/common';
 
 @Injectable()
 export class LoggingInterceptor implements NestInterceptor {
@@ -15,9 +15,8 @@ export class LoggingInterceptor implements NestInterceptor {
   // incluir el ID de usuario y el ID de correlación
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     const request = context.switchToHttp().getRequest();
-    // const { method, url, correlationId, ip } = request;
-    // const userAgent = request.get('user-agent') || '';
-    const { method, url } = request;
+    const { method, userId, url, correlationId, ip } = request;
+    const userAgent = request.get('user-agent') || '';
     const now = Date.now();
 
     return next.handle().pipe(
@@ -26,12 +25,12 @@ export class LoggingInterceptor implements NestInterceptor {
         const statusCode = response.statusCode;
         this.logger.log(
           `${method} ${url} ${statusCode} ${Date.now() - now}ms`,
-          // {
-          //   correlationId,
-          //   userId,
-          //   userAgent,
-          //   ip,
-          // },
+          {
+            correlationId,
+            userId,
+            userAgent,
+            ip,
+          },
           'LoggingInterceptor',
         );
       }),

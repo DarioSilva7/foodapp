@@ -1,8 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+
+import { BaseUser } from '../../entities/baseUser.entity';
+import { BaseUserRepository } from '../../repositories/index';
+
 import { CreateBaseUserDto } from './dto/create-base-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { BaseUser } from '../../entities/baseUser.entity';
-import { BaseUserRepository } from 'src/repositories';
 
 @Injectable()
 export class UserService {

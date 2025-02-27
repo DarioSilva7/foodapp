@@ -1,12 +1,13 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+
 import { Auth } from '../entities/index';
-import { InjectRepository } from '@nestjs/typeorm'; // Importar el decorador InjectRepository
 
 @Injectable()
 export class AuthRepository {
   constructor(
-    @InjectRepository(Auth) private readonly authRepository: Repository<Auth>, // Inyectar el repositorio directamente
+    @InjectRepository(Auth) private readonly authRepository: Repository<Auth>,
   ) {}
   hola() {
     return 'Hola';

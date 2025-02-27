@@ -5,8 +5,10 @@ import {
   OneToOne,
   PrimaryColumn,
 } from 'typeorm';
-import { Company } from './index';
+
 import { BaseUser } from './baseUser.entity';
+
+import { Company } from './index';
 @Entity()
 export class CompanyRepresentative {
   @PrimaryColumn('uuid')

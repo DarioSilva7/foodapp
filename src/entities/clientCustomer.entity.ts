@@ -5,10 +5,12 @@ import {
   OneToOne,
   PrimaryColumn,
 } from 'typeorm';
-import { InvoiceData } from './index';
-import { Invoice } from './invoice.entity';
+
 import { BaseUser } from './baseUser.entity';
+import { Invoice } from './invoice.entity';
 import { Pedido } from './pedido.entity';
+
+import { InvoiceData } from './index';
 
 @Entity()
 export class ClientCustomer {
